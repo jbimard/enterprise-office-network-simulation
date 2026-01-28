@@ -345,7 +345,7 @@ Potential improvements and expansions for this project:
 
 **Joseph Posas**
 - 🎓 Cybersecurity / Networking Program
-- 💼 [LinkedIn](https://linkedin.com/in/jbimard)
+- 💼 [LinkedIn](https://www.linkedin.com/in/josephposas/)
 - 🐙 [GitHub](https://github.com/jbimard)
 
 ---
@@ -378,6 +378,5 @@ Potential improvements and expansions for this project:
 
 **⭐ Star this repository if you find it helpful!**
 
-Made with ❤️ by [Joseph Posas](https://github.com/jbimard)
 
 </div>

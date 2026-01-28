@@ -1,0 +1,67 @@
+! VLAN Creation and Configuration Script
+! Purpose: Create all VLANs used in the enterprise network
+! Apply to: IT-Switch and HR-Switch (as appropriate)
+
+! ====================================================================
+! VLAN 1 - Default/Management VLAN
+! ====================================================================
+! Note: VLAN 1 exists by default and cannot be deleted
+! Used for: Network infrastructure management (routers, switches, WLC)
+
+! ====================================================================
+! VLAN 2 - HR Department VLAN
+! ====================================================================
+vlan 2
+name HR-Department
+exit
+
+! ====================================================================
+! VLAN 10 - Employee Wireless VLAN
+! ====================================================================
+vlan 10
+name Employee-Wireless
+exit
+
+! ====================================================================
+! VLAN 20 - Guest Wireless VLAN
+! ====================================================================
+vlan 20
+name Guest-Wireless
+exit
+
+! ====================================================================
+! Verification Commands
+! ====================================================================
+! After applying the above configuration, verify with:
+!   show vlan brief
+!   show vlan id 2
+!   show vlan id 10
+!   show vlan id 20
+
+! ====================================================================
+! Port Assignment Examples
+! ====================================================================
+
+! IT Switch - Default VLAN (VLAN 1)
+! interface range FastEthernet0/2-22
+!  switchport mode access
+!  switchport access vlan 1
+!  spanning-tree portfast
+!  no shutdown
+
+! HR Switch - HR VLAN (VLAN 2)  
+! interface range FastEthernet0/2-22
+!  switchport mode access
+!  switchport access vlan 2
+!  spanning-tree portfast
+!  no shutdown
+
+! WLC Ports - For wireless client VLANs
+! Note: Wireless clients are automatically assigned to VLANs 10 or 20
+! based on which SSID they connect to (configured on WLC)
+
+! ====================================================================
+! Save Configuration
+! ====================================================================
+end
+write memory

@@ -1,0 +1,196 @@
+! Access Control List (ACL) Configuration Script
+! Purpose: Implement security policies through traffic filtering
+! Apply to: IT-Router
+! Security Goal: Isolate departments and restrict guest access
+
+! ====================================================================
+! ACL 1: Guest VLAN Access Control
+! ====================================================================
+! Purpose: Allow guests internet access only, block internal network
+! VLAN: 20 (Guest-Wireless)
+! Policy:
+!   - Block all traffic to internal network (192.168.1.0/24)
+!   - Permit all other traffic (internet access)
+
+ip access-list extended GUEST-ACL
+ ! Deny access to internal network
+ deny   ip 192.168.1.0 0.0.0.255 192.168.1.0 0.0.0.255 log
+ 
+ ! Permit all other traffic (to internet)
+ permit ip any any
+ 
+exit
+
+! ====================================================================
+! ACL 2: HR Department Access Control
+! ====================================================================
+! Purpose: Restrict HR department to only necessary resources
+! VLAN: 2 (HR-Department)
+! Policy:
+!   - Allow access to DNS Server (192.168.1.10)
+!   - Allow access to File Server (192.168.1.11)
+!   - Allow access to HR Printer (192.168.1.81)
+!   - Block all other internal network access
+!   - Permit internet access
+
+ip access-list extended HR-ACL
+ ! Permit HR to DNS Server
+ permit ip 192.168.1.60 0.0.0.31 host 192.168.1.10
+ 
+ ! Permit HR to File Server
+ permit ip 192.168.1.60 0.0.0.31 host 192.168.1.11
+ 
+ ! Permit HR to HR Printer
+ permit ip 192.168.1.60 0.0.0.31 host 192.168.1.81
+ 
+ ! Deny all other internal network access
+ deny   ip 192.168.1.60 0.0.0.31 192.168.1.0 0.0.0.255 log
+ 
+ ! Permit internet access
+ permit ip any any
+ 
+exit
+
+! ====================================================================
+! ACL 3: IT Department Access Control
+! ====================================================================
+! Purpose: Allow full network access for IT staff
+! VLAN: 1 (Default/Management)
+! Policy:
+!   - Permit all traffic (full network access for administration)
+
+ip access-list extended IT-ACL
+ ! Permit all traffic
+ permit ip any any
+ 
+exit
+
+! ====================================================================
+! ACL 4: Management Access Control (Optional)
+! ====================================================================
+! Purpose: Restrict SSH/Telnet access to network devices
+! Apply to: VTY lines on all devices
+! Policy:
+!   - Only allow management from specific subnets or hosts
+
+ip access-list standard MGMT-ACCESS
+ ! Permit IT Office subnet
+ permit 192.168.1.0 0.0.0.255
+ 
+ ! Deny all other sources
+ deny any log
+ 
+exit
+
+! ====================================================================
+! Apply ACLs to Interfaces
+! ====================================================================
+! Apply inbound on interfaces connected to respective networks
+
+interface GigabitEthernet0/0
+ description Connection to IT-Switch
+ ip access-group IT-ACL in
+exit
+
+interface GigabitEthernet0/1
+ description Connection to HR-Switch  
+ ip access-group HR-ACL in
+exit
+
+! Note: Guest ACL would be applied when implementing separate VLAN routing
+! Example (if using sub-interfaces):
+! interface GigabitEthernet0/0.20
+!  description Guest Wireless VLAN
+!  ip access-group GUEST-ACL in
+
+! ====================================================================
+! Apply Management ACL to VTY Lines
+! ====================================================================
+line vty 0 4
+ access-class MGMT-ACCESS in
+ transport input ssh
+exit
+
+! ====================================================================
+! Verification Commands
+! ====================================================================
+! After applying ACLs, verify with:
+!   show access-lists                  - Display all ACLs
+!   show access-lists GUEST-ACL        - Display specific ACL
+!   show ip interface GigabitEthernet0/1  - Show ACL applied to interface
+!   show ip access-lists               - Display only IP ACLs with hit counts
+
+! ====================================================================
+! Testing ACLs
+! ====================================================================
+! Test 1: HR PC should be able to ping File Server
+!   From HR PC (192.168.1.60):  ping 192.168.1.11  → Should SUCCEED
+
+! Test 2: HR PC should NOT be able to ping IT infrastructure
+!   From HR PC (192.168.1.60):  ping 192.168.1.2   → Should FAIL
+
+! Test 3: Guest wireless should NOT access internal network
+!   From Guest device:  ping 192.168.1.10  → Should FAIL
+
+! Test 4: Guest wireless SHOULD access internet
+!   From Guest device:  ping 8.8.8.8  → Should SUCCEED
+
+! Test 5: IT PC should access everything
+!   From IT PC (192.168.1.50):  ping 192.168.1.60  → Should SUCCEED
+
+! ====================================================================
+! Troubleshooting ACLs
+! ====================================================================
+! If ACL is not working as expected:
+
+! 1. Check ACL is applied to correct interface and direction
+!    show ip interface GigabitEthernet0/1
+
+! 2. Check ACL hit counts (shows which rules are matching)
+!    show ip access-lists
+
+! 3. Verify ACL order (rules processed top to bottom)
+!    Remember: First match wins!
+
+! 4. Check for implicit deny at end of every ACL
+!    All traffic not explicitly permitted is denied
+
+! 5. Use logging to see what traffic is being blocked
+!    Add 'log' keyword to ACL entries
+!    View logs: show logging
+
+! ====================================================================
+! ACL Best Practices
+! ====================================================================
+! 1. Most specific rules first, general rules last
+! 2. Use named ACLs for easier management
+! 3. Document purpose of each ACL and rule
+! 4. Test ACLs thoroughly before deploying to production
+! 5. Use 'log' keyword during testing, remove in production
+! 6. Review and update ACLs regularly
+! 7. Keep ACLs as simple as possible
+
+! ====================================================================
+! Modifying ACLs
+! ====================================================================
+! To add a rule to existing named ACL:
+!   ip access-list extended HR-ACL
+!   15 permit tcp 192.168.1.60 0.0.0.31 host 192.168.1.12 eq 80
+!   exit
+
+! To remove a rule:
+!   ip access-list extended HR-ACL
+!   no 15
+!   exit
+
+! To completely remove an ACL:
+!   no ip access-list extended HR-ACL
+
+! Note: Numbered ACLs cannot be edited line-by-line;
+!       must remove entire ACL and recreate
+
+! ====================================================================
+! Save Configuration
+! ====================================================================
+end
+write memory

@@ -1,0 +1,105 @@
+! DHCP Configuration Script
+! Purpose: Configure DHCP pools for automatic IP address assignment
+! Apply to: IT-Router
+! Network: 192.168.1.0/24
+
+! ====================================================================
+! Exclude Static IP Addresses from DHCP Pool
+! ====================================================================
+! Reserve addresses 192.168.1.1 - 192.168.1.100 for static devices:
+!   - 192.168.1.1: IT-Router (Default Gateway)
+!   - 192.168.1.2: IT-Switch (Management)
+!   - 192.168.1.3: Wireless LAN Controller
+!   - 192.168.1.10-29: Servers (DNS, File, Print, etc.)
+!   - 192.168.1.20: HR-Switch (Management)
+!   - 192.168.1.50-100: Workstations with static IPs
+
+ip dhcp excluded-address 192.168.1.1 192.168.1.100
+
+! ====================================================================
+! Create DHCP Pool for LAN Devices
+! ====================================================================
+ip dhcp pool LAN-POOL
+ ! Define the network and subnet mask
+ network 192.168.1.0 255.255.255.0
+ 
+ ! Set the default gateway (router) for clients
+ default-router 192.168.1.1
+ 
+ ! Set DNS server for name resolution
+ dns-server 192.168.1.10
+ 
+ ! Set domain name for the organization
+ domain-name intercity.local
+ 
+ ! Set DHCP lease time to 7 days
+ lease 7
+ 
+exit
+
+! ====================================================================
+! DHCP Pool for Wireless Devices (Optional Separate Pool)
+! ====================================================================
+! If you want a separate pool for wireless devices:
+
+! ip dhcp excluded-address 192.168.1.200 192.168.1.254
+!
+! ip dhcp pool WIRELESS-POOL
+!  network 192.168.1.0 255.255.255.0
+!  default-router 192.168.1.1
+!  dns-server 192.168.1.10
+!  domain-name intercity.local
+!  lease 1
+! exit
+
+! ====================================================================
+! Verification Commands
+! ====================================================================
+! After applying configuration, verify with:
+!   show ip dhcp pool                  - Display DHCP pool information
+!   show ip dhcp binding               - Show current DHCP leases
+!   show ip dhcp server statistics     - DHCP server statistics
+!   show ip dhcp conflict              - Display IP address conflicts
+
+! ====================================================================
+! Troubleshooting Commands
+! ====================================================================
+! If DHCP is not working:
+!   clear ip dhcp binding *            - Clear all DHCP leases
+!   clear ip dhcp conflict *           - Clear DHCP conflicts
+!   debug ip dhcp server events        - Enable DHCP debugging (use carefully!)
+
+! To stop debugging:
+!   no debug ip dhcp server events
+!   undebug all
+
+! ====================================================================
+! Client-Side Testing
+! ====================================================================
+! On a Windows PC:
+!   ipconfig /release                  - Release current IP
+!   ipconfig /renew                    - Request new IP from DHCP
+!   ipconfig /all                      - Display full IP configuration
+
+! On a Linux PC:
+!   dhclient -r                        - Release DHCP lease
+!   dhclient                           - Request new lease
+
+! ====================================================================
+! IP Address Allocation Plan
+! ====================================================================
+! Range                    Purpose                       Assignment
+! ------------------------------------------------------------------------
+! 192.168.1.1              Router (Default Gateway)      Static
+! 192.168.1.2-9            Network Infrastructure        Static
+! 192.168.1.10-29          Servers                       Static
+! 192.168.1.30-49          Reserved for Future Use       -
+! 192.168.1.50-100         Workstations                  Static
+! 192.168.1.101-199        DHCP Pool (Wired/Wireless)    DHCP
+! 192.168.1.200-254        Wireless Devices              DHCP
+
+! ====================================================================
+! Save Configuration
+! ====================================================================
+end
+write memory

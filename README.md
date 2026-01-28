@@ -280,7 +280,7 @@ enterprise-office-network-simulation/
 ├── enterprise-network.pkt             # Cisco Packet Tracer simulation file
 │
 ├── docs/
-│   ├── Network_Infrastructure_Project_Documentation.pdf
+│   ├── Network Infrastructure Project Documentation.pdf
 │   ├── configuration-guide.md         # Device configuration details
 │   ├── troubleshooting-guide.md       # Common issues and solutions
 │   └── images/                        # Network diagrams and screenshots

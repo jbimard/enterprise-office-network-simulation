@@ -11,25 +11,6 @@ A comprehensive enterprise network infrastructure project featuring multi-site c
 
 ---
 
-## 📋 Table of Contents
-
-- [Overview](#overview)
-- [Project Objectives](#project-objectives)
-- [Network Architecture](#network-architecture)
-- [Key Features](#key-features)
-- [Technologies Used](#technologies-used)
-- [Network Topology](#network-topology)
-- [IP Addressing Scheme](#ip-addressing-scheme)
-- [VLAN Configuration](#vlan-configuration)
-- [Security Implementation](#security-implementation)
-- [Installation & Setup](#installation--setup)
-- [Documentation](#documentation)
-- [Skills Demonstrated](#skills-demonstrated)
-- [Future Enhancements](#future-enhancements)
-- [Author](#author)
-
----
-
 ## 🎯 Overview
 
 This project demonstrates the design and implementation of a **secure, scalable enterprise network infrastructure** connecting two office locations (IT and HR) through a cloud data center. The network is built entirely in Cisco Packet Tracer and showcases real-world networking concepts including routing, switching, wireless management, and multi-layered security.

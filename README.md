@@ -1,4 +1,4 @@
-# 🌐 Enterprise Office Network Simulation
+# Enterprise Office Network Simulation
 
 [![Cisco Packet Tracer](https://img.shields.io/badge/Cisco-Packet%20Tracer-1BA0D7?style=flat&logo=cisco&logoColor=white)](https://www.netacad.com/courses/packet-tracer)
 [![Network Design](https://img.shields.io/badge/Project-Network%20Infrastructure-blue)](https://github.com/jbimard/enterprise-office-network-simulation)
@@ -11,7 +11,7 @@ A comprehensive enterprise network infrastructure project featuring multi-site c
 
 ---
 
-## 🎯 Overview
+## Overview
 
 This project demonstrates the design and implementation of a **secure, scalable enterprise network infrastructure** connecting two office locations (IT and HR) through a cloud data center. The network is built entirely in Cisco Packet Tracer and showcases real-world networking concepts including routing, switching, wireless management, and multi-layered security.
 
@@ -26,7 +26,7 @@ The project simulates a medium-sized organization with:
 
 ---
 
-## 🎯 Project Objectives
+## Project Objectives
 
 1. **Design a functional multi-site network** connecting IT and HR offices with seamless inter-office communication
 2. **Configure enterprise-grade networking equipment** including Cisco routers, switches, WLCs, and lightweight APs
@@ -37,7 +37,7 @@ The project simulates a medium-sized organization with:
 
 ---
 
-## 🏗️ Network Architecture
+## Network Architecture
 
 ### Physical Layout
 - **IT Office**: Central technical hub with core networking equipment
@@ -52,27 +52,27 @@ The project simulates a medium-sized organization with:
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-### 🔌 Network Infrastructure
+### Network Infrastructure
 - Multi-site WAN connectivity using serial links
 - Redundant switching architecture for high availability
 - Centralized wireless management with WLC
 - Structured IP addressing and subnetting
 
-### 🔐 Security
+### Security
 - **VLAN Segmentation**: 4 VLANs isolating management, HR, employee wireless, and guest wireless traffic
 - **Access Control Lists (ACLs)**: Router-based traffic filtering between VLANs
 - **Wireless Security**: WPA2-Enterprise for employees, WPA2-Personal for guests
 - **Device Hardening**: SSH-only management, disabled unused ports, strong passwords
 
-### 📡 Wireless Services
+### Wireless Services
 - Controller-based wireless architecture (CAPWAP)
 - Multiple SSIDs with VLAN tagging
 - Guest network isolation with internet-only access
 - Enterprise authentication for employee devices
 
-### 🛠️ Network Services
+### Network Services
 - **DHCP**: Dynamic IP allocation from centralized router
 - **DNS**: Internal hostname resolution
 - **File Server**: Centralized document storage with departmental folders
@@ -80,7 +80,7 @@ The project simulates a medium-sized organization with:
 
 ---
 
-## 💻 Technologies Used
+## Technologies Used
 
 | Category | Technology |
 |----------|-----------|
@@ -94,7 +94,7 @@ The project simulates a medium-sized organization with:
 
 ---
 
-## 🗺️ Network Topology
+## Network Topology
 
 ### High-Level Architecture
 
@@ -132,7 +132,7 @@ VLAN 20 (Guest Wireless)      → Guest internet-only access
 
 ---
 
-## 📊 IP Addressing Scheme
+## IP Addressing Scheme
 
 ### Network: 192.168.1.0/24
 
@@ -158,7 +158,7 @@ VLAN 20 (Guest Wireless)      → Guest internet-only access
 
 ---
 
-## 🔀 VLAN Configuration
+## VLAN Configuration
 
 ### VLAN Breakdown
 
@@ -177,40 +177,40 @@ VLAN 20 (Guest Wireless)      → Guest internet-only access
 
 ---
 
-## 🔐 Security Implementation
+## Security Implementation
 
-### 1️⃣ Network Segmentation
+### 1 Network Segmentation
 - VLANs isolate traffic between departments and device types
 - Inter-VLAN routing controlled by ACLs on core router
 - Guest VLAN has no access to internal VLANs
 
-### 2️⃣ Access Control Lists (ACLs)
+### 2 Access Control Lists (ACLs)
 ```
 HR VLAN (2)     → Access to HR servers and printers only
 IT VLAN (1)     → Full network access for administration
 Guest VLAN (20) → Internet access only, all internal traffic blocked
 ```
 
-### 3️⃣ Wireless Security
+### 3 Wireless Security
 - **Employee SSID**: WPA2-Enterprise with RADIUS authentication
 - **Guest SSID**: WPA2-Personal with pre-shared key
 - **VLAN Tagging**: Automatic VLAN assignment based on SSID
 - **Controller Management**: Centralized policy enforcement
 
-### 4️⃣ Device Hardening
+### 4 Device Hardening
 - SSH enabled, Telnet disabled on all management devices
 - Strong passwords enforced (minimum 12 characters)
 - Unused switch ports disabled
 - Console password protection enabled
 
-### 5️⃣ Perimeter Security
+### 5 Perimeter Security
 - Router ACLs filter traffic between internal network and cloud
 - Only necessary services (DNS, HTTP/HTTPS) permitted outbound
 - Inbound traffic restricted to established connections
 
 ---
 
-## 🚀 Installation & Setup
+## Installation & Setup
 
 ### Prerequisites
 - **Cisco Packet Tracer** 8.0 or later ([Download here](https://www.netacad.com/courses/packet-tracer))
@@ -250,7 +250,7 @@ Guest VLAN (20) → Internet access only, all internal traffic blocked
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 ### Project Files
 
@@ -283,13 +283,13 @@ enterprise-office-network-simulation/
 ```
 
 ### Additional Documentation
-- [📖 Full Project Documentation (PDF)](docs/Network_Infrastructure_Project_Documentation.pdf)
-- [⚙️ Configuration Guide](docs/configuration-guide.md)
-- [🔧 Troubleshooting Guide](docs/troubleshooting-guide.md)
+- [Full Project Documentation (PDF)](docs/Network_Infrastructure_Project_Documentation.pdf)
+- [Configuration Guide](docs/configuration-guide.md)
+- [Troubleshooting Guide](docs/troubleshooting-guide.md)
 
 ---
 
-## 🎓 Skills Demonstrated
+## Skills Demonstrated
 
 This project showcases proficiency in:
 
@@ -324,7 +324,7 @@ This project showcases proficiency in:
 
 ---
 
-## 🔮 Future Enhancements
+## Future Enhancements
 
 Potential improvements and expansions for this project:
 
@@ -341,16 +341,16 @@ Potential improvements and expansions for this project:
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 **Joseph Posas**
-- 🎓 Cybersecurity / Networking Program
-- 💼 [LinkedIn](https://www.linkedin.com/in/josephposas/)
-- 🐙 [GitHub](https://github.com/jbimard)
+- Cybersecurity / Networking Program
+- [LinkedIn](https://www.linkedin.com/in/josephposas/)
+- [GitHub](https://github.com/jbimard)
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Cisco Networking Academy for Packet Tracer
 - Intercity Networks for project requirements
@@ -358,7 +358,7 @@ Potential improvements and expansions for this project:
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
 ### Logical Network Topology
 ![Logical Topology](docs/images/logical-topology.png)
@@ -369,14 +369,11 @@ Potential improvements and expansions for this project:
 ### HR Office Physical Layout
 ![HR Office](docs/images/physical-layout-hr.png)
 
-### VLAN Configuration
-![VLAN Diagram](docs/images/vlan-diagram.png)
-
 ---
 
 <div align="center">
 
-**⭐ Star this repository if you find it helpful!**
+**Star this repository if you find it helpful!**
 
 
 </div>
